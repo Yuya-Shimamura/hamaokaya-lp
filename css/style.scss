@@ -1,0 +1,770 @@
+// ******    変数定義    ******
+$color-white: #fff;
+$color-active: #E81919;
+$color-theme: #940035;
+$color-main: #333333;
+$color-gray: #f8f8f8;
+$color-light-gray: #DDDDDD;
+$color-purple: #4b0082;
+$color-pink: #ffb6c1;
+$color-light-blue: #00ffff;
+$color-gold: #eee8aa;
+
+
+// ******    関数定義    ******
+//マップ型変数breakpointsを定義
+$breakpoints: (
+//キー値
+ 'sm': 'screen and (max-width: 767px)', //767px以下（スマホ）用の表示
+ 'md': 'screen and (max-width: 767px)', //768px以上（タブレット）用の表示
+ 'lg': 'screen and (min-width: 1280px)' //1280px以上（PC）用の表示
+) !default;
+
+//メディアクエリ用のmixinを定義。デフォ値はmd
+@mixin mq($breakpoint: md) {
+  //map-get(マップ型変数, キー)で値を取得
+    @media #{map-get($breakpoints, $breakpoint)} {
+      //この中をカスタムできる
+      @content;
+    }
+  }
+
+@mixin btn($color) {
+  padding: 1rem;
+  display: inline-block;
+  background-color: $color ;
+  color: $color-white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+
+  &:hover {
+    opacity: 0.7;
+    cursor: pointer;
+  }
+}
+
+// ******    共通設定    ******
+.inner {
+  padding-left: 300px;
+  padding-right: 40px;
+  @include mq(md) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  @include mq(sm) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.inner-sub {
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.bg-gray {
+  background: $color-gray;
+}
+
+.section-title {
+  padding-top: 10rem;
+  padding-bottom: 6.4rem;
+  font-size: 3.2rem;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  @include mq(md) {
+    padding-bottom: 6.4rem;
+    padding-top: 4rem;
+  }
+  @include mq(sm) {
+    padding-top: 4rem;
+    padding-bottom: 2.6rem;
+    font-size: 2rem;
+  };
+}
+
+.section-sub-title {
+  padding-top: 5rem;
+  padding-bottom: 5.4rem;
+  font-size: 2.8rem;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  @include mq(sm) {
+    padding-top: 5rem;
+    padding-bottom: 2.7rem;
+    font-size: 1.6rem;
+  };
+}
+
+.section-text {
+  margin-top: 3.6rem;
+  p {
+    line-height: 1.8;
+    font-size: 2rem;
+    @include mq(sm) {
+      font-size: 1.4rem;
+    };
+  }
+}
+
+.pc-d-none {
+  display: none;
+  @include mq(sm) {
+    display: block;
+  };
+}
+
+// ******    PC用メニューバー    ******
+.pc-nav {
+  max-width: 300px;
+  color: $color-theme;
+  background: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  margin: 2rem;
+  @include mq(md) {
+    display: none;
+  }
+  @include mq(sm) {
+    display: none;
+  };
+  .logo {
+    padding-left: 20px;
+    margin-bottom: 100px;
+    
+    img {
+      width: auto;
+      height: 200px;
+    }
+  }
+  .nav-menu {
+    padding-left: 20px;
+    li {
+      margin-bottom: 2.5rem;
+      cursor: pointer;
+      p {
+        display: inline-block;
+        padding-left: 2rem;
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+    .insta-link {
+      padding-top: 30px;
+    }
+    .menu-toggler {
+      display: none;
+      margin-left: 2rem;
+      margin-top: 1.5rem;
+      .toggler-menu-first {
+        margin-top: 20px;
+      }
+      a {
+        font-size: 1.5rem;
+      }
+    }
+    a {
+      font-size: 2rem;
+      padding-left: 1rem;
+      color: $color-theme;
+      font-weight: bold;
+    }
+  }
+}
+
+// ******   レスポンシブメニュー    ******
+.nav-responsive {
+  display: none;
+
+  @include mq(sm) {
+    color: $color-theme;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    background: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    padding: 0.5rem;
+    .logo {
+      z-index: 3;
+      width: 53.6px;
+      height: 80px;
+      &.mini {
+        transform-origin: top;
+        // transition: all .2s;
+        transform: scale(0.5,0.5);
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .open-menu-res {
+      position: relative;
+      padding: 0;
+      .color-change {
+        padding: 13px;
+        padding-left: 13px;
+      }
+      .angle-down {
+        width: 15px;
+        height: 15px;
+        border: 2px solid;
+        border-color:  transparent transparent  $color-main $color-main;
+        transition: all .3s;
+        transform: rotate(-45deg);
+        position: absolute;
+        right: 25px;
+        top: 8px;
+        &.transform {
+          transition: all .3s;
+          transform: rotate(-225deg);
+          top: 18px;
+          border-color:  transparent transparent  $color-white $color-white;
+        }
+      }
+    }
+  }
+}
+
+// ******    ハンバーガーメニュー    ******
+.navToggle {
+    display: none;
+  @include mq(md) {
+    display: block;
+    position: fixed;    /* bodyに対しての絶対位置指定 */
+    right: 15px;
+    top: 5px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 3;
+    text-align: center;
+    span {
+      display: block;
+      position: absolute;    /* .navToggleに対して */
+      width: 30px;
+      border-bottom: solid 3px $color-theme;
+      -webkit-transition: .35s ease-in-out;
+      -moz-transition: .35s ease-in-out;
+      transition: .35s ease-in-out;
+      left: 6px;
+      &:nth-child(1) {
+        top: 9px;
+      }
+      &:nth-child(2) {
+        top: 18px;
+      }
+      &:nth-child(3) {
+        top: 27px;
+      }
+      &:nth-child(4) {
+      border: none;
+      color: $color-theme;
+      font-size: 9px;
+      font-weight: bold;
+      top: 34px;
+      }
+    }
+  }
+
+  @include mq(sm) {
+    display: block;
+    position: fixed;    /* bodyに対しての絶対位置指定 */
+    right: 15px;
+    top: 5px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 3;
+    text-align: center;
+    span {
+      display: block;
+      position: absolute;    /* .navToggleに対して */
+      width: 30px;
+      border-bottom: solid 3px $color-theme;
+      -webkit-transition: .35s ease-in-out;
+      -moz-transition: .35s ease-in-out;
+      transition: .35s ease-in-out;
+      left: 6px;
+      &:nth-child(1) {
+        top: 9px;
+      }
+      &:nth-child(2) {
+        top: 18px;
+      }
+      &:nth-child(3) {
+        top: 27px;
+      }
+      &:nth-child(4) {
+      border: none;
+      color: $color-theme;
+      font-size: 9px;
+      font-weight: bold;
+      top: 34px;
+      }
+    }
+  }
+}
+
+.navToggle.active span:nth-child(1) {
+  top: 18px;
+    left: 6px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.navToggle.active span:nth-child(2),
+.navToggle.active span:nth-child(3) {
+    top: 18px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}    
+
+.globalMenuSp {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background: $color-white;
+    transform: translateY(-100%);
+    transition: all 0.6s;
+    width: 100%;
+    ul {
+    background: $color-white;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    li {
+    font-size: 2rem;
+    font-weight: bold;
+    list-style-type: none;
+    padding: 1.3rem;
+    width: 100%;
+    border-bottom: 1px dotted $color-main;
+    cursor: pointer;
+    &:last-child {
+      border-bottom: none;
+    }
+    a {
+    display: block;
+    font-size: 16px;
+    }
+    p {
+      color: $color-main;
+      @include mq(md) {
+        font-size: 16px;
+        padding: 1.5rem;
+      };
+    }
+    }
+    }
+}
+
+.globalMenuSp.active {
+  transform: translateY(50px);
+}
+
+// ******    折り畳みメニュー    ******
+.open {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.bg-black {
+  background-color: $color-theme;
+}
+
+.bg-black-border {
+  transition: all .2s;
+  background-color: $color-white;
+  border-bottom: 2px solid $color-theme;
+}
+
+// ******    ヒーローイメージ    ******
+.top-img {
+  @include mq(sm) {
+    display: none;
+  };
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.sm-top-img {
+  display: none;
+  @include mq(md) {
+    display: none;
+  };
+  @include mq(sm) {
+    display: block;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  };
+}
+
+.bg-slider {
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+}
+
+// ******    お知らせ    ******
+.news {
+  .section-title {
+    padding-top: 50px;
+  }
+}
+
+.introduction {
+  padding-top: 7.4rem;
+  padding-bottom: 7.4rem;
+  text-align: center;
+  @include mq(sm) {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  };
+  .intro-text {
+    font-size: 20px;
+    line-height: 2;
+    padding-bottom: 3rem;
+    @include mq(sm) {
+      font-size: 14px;
+    };
+  }
+  .introduction-img {
+    img {
+      width: 100%;
+    }
+  }
+}
+.news-section {
+  display: grid;
+  gap: 2.4rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding-bottom: 108px;
+  @include mq(md) {
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 54px;
+  }
+  @include mq(sm) {
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 54px;
+  }
+  .card {
+    background: $color-white;
+    border-radius: 4px;
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+  }
+  .card-pc-none {
+    display: none;
+    @include mq(md) {
+      display: block;
+    }
+    @include mq(sm) {
+      display: block;
+    }
+  }
+}
+
+// ******    メニューカードセクション    ******
+.menu-section {
+  display: grid;
+  gap: 2.4rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding-bottom: 108px;
+  @include mq(md) {
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 54px;
+  }
+  @include mq(sm) {
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 54px;
+  };
+  .card {
+    background: $color-white;
+    border-radius: 4px;
+    font-weight: bold;
+    // width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 0 4px $color-light-gray;
+    transition: all .3s;
+    &:hover {
+      transform: scale(1.03);
+      opacity: 0.7;
+    }
+    .card-img {
+      width: 100%;
+    }
+      img {
+        width: 100%;
+      }
+  }
+}
+
+// ******    モーダル画像    ******
+.modal{
+  display: none;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  .modal__bg{
+    background: rgba(202, 202, 202, 0.8);
+    height: 100vh;
+    position: absolute;
+    width: 100%;
+    cursor: pointer;
+  }
+  .modal__content{
+    position: absolute;
+    left: 58%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 30%;
+    img {
+      width: 100%;
+    }
+    @include mq(md) {
+      left: 50%;
+      top: 50%;
+      width: 60%;
+    };
+    @include mq(sm) {
+      left: 50%;
+      top: 50%;
+      width: 80%;
+    };
+  }
+  img {
+    text-align: center;
+    cursor: pointer;
+    max-width: 100%;
+  }
+}
+
+// ******    Aboutセクション    ******
+.about {
+  padding-bottom: 108px;
+  @include mq(md) {
+    padding-bottom: 54px;
+  }
+  @include mq(sm) {
+    padding-bottom: 54px;
+  }
+  .about-img {
+    text-align: center;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+// ******    Cafeセクション    ******
+.cafe {
+  padding-bottom: 54px;
+}
+
+// ******    Contactセクション    ******
+.contact {
+  padding-bottom: 34px;
+  .cafe-slide {
+    margin-bottom: 54px;
+  }
+  .fa-map-marker-alt {
+    cursor: pointer;
+  }
+  .shop-image {
+    width: 100%;
+    @include mq(md) {
+      width: 100%;
+      margin-bottom: 2rem;
+    };
+    @include mq(sm) {
+      width: 100%;
+    };
+    img {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+  }
+  .section-text {
+    margin-bottom: 5.4rem;
+    margin-right: 0;
+    .text-flex {
+      display: flex;
+      .text-flex-title {
+        display: block;
+        width: 140px;
+        @include mq(sm) {
+          width: 100px;
+        };
+      }
+    }
+    a {
+    line-height: 1.8;
+    font-size: 2rem;
+    @include mq(sm) {
+      font-size: 1.4rem;
+    };
+    }
+    @include mq(md) {
+      width: 100%;
+    };
+    @include mq(sm) {
+      width: 100%;
+    };
+  }
+}
+
+
+// ******    SNSセクション    ******
+  .fax-btn {
+    border-radius: 8px;
+    text-align: center;
+  };
+  .btn {
+    background-color: $color-theme ;
+    padding: 1.2rem 4rem;
+    color: $color-white;
+    font-weight: bold;
+    border: none;
+    text-align: center;
+    box-shadow: 0 0 8px  $color-main;
+    &:hover {
+      color: $color-theme;
+      background: $color-white;
+      border: 2px solid $color-theme;
+      padding: 1rem 4rem;
+    }
+    p {
+      font-size: 2rem;
+      @include mq(sm) {
+        font-size: 1.4rem;
+      };
+    }
+  }
+.sns {
+  text-align: center;
+  padding-bottom: 5.4rem;
+  padding-top: 5.4rem;
+  .fax-text {
+    font-size: 20px;
+    padding-bottom: 3rem;
+    @include mq(sm) {
+      font-size: 14px;
+      padding-bottom: 2rem;
+    };
+  }
+}
+
+.sns-box {
+  display: flex;
+  justify-content: center;
+  padding-top: 4rem;
+  @include mq(sm) {
+    padding-top: 5.4rem;
+  }
+  .link-item {
+    width: 50px;
+    margin: 1.5rem;
+    margin-right: 5rem;
+    margin-left: 5rem;
+    @include mq(md) {
+      width: 30px;
+      margin: 1rem;
+      margin-right: 3rem;
+      margin-left: 3rem;
+    };
+    img {
+      width: 100%;
+      max-height: 50px;
+      margin-top: 0;
+      @include mq(sm) {
+        max-height: 30px;
+        margin-top: 0;
+      }        
+      }
+      .twitter {
+        img {
+          max-height: 45px;
+        }
+      }
+  }
+}
+// ******    トップへ戻るボタン    ******
+.go-top{
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  img {
+    width: 50px;
+    @include mq(sm) {
+      width: 30px;
+    };
+  }
+}
+
+// ******    フッター    ******
+.logo-text-img {
+  text-align: center;
+  padding: 2rem;
+  @include mq(sm) {
+    padding: 1rem;
+  };
+  img {
+    width: 10%;
+    @include mq(sm) {
+      width: 20%;
+    };
+  }
+}
+
+footer {
+  height: 50px;
+  color: $color-main;
+  background: $color-white;
+  .footer-copy {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    .copy-right {
+      font-size: 1.4rem;
+      color: $color-light-gray;
+      @include mq(sm) {
+        font-size: 0.8rem;
+      };
+    }
+  }
+}
