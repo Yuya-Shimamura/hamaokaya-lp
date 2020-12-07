@@ -121,62 +121,51 @@
       </div>
     </div>
 
+
+<!-- Instagram APIの読み込み -->
+  <?php
+$instagram = null;
+$instagram_business_id = '17841404220144428'; 
+$access_token = 'EAAC0skTSDZBgBAOWwcktMxAr8fQAOX3bPsI1XqYSZBoH6LOktuD04o704jbgZBd5AAwGt6HfCgqZAjAPuI17tBhry6wqzEgeeqeoxlxohStiZBRWW6I9TJpYiMfJyPqPFHI9wuZAnD0pwNxTnJlXRKEJV8kpwtSLh1vkmAtTHW7pPmYBfQeRuO'; 
+$post_count = 6;
+$query = 'name,media.limit(' . $post_count. '){caption,like_count,media_url,permalink,timestamp,username,comments_count}';
+$get_url = 'https://graph.facebook.com/v9.0/' . $instagram_business_id . '?fields=' . $query . '&access_token=' . $access_token;
+$curl = curl_init();
+curl_setopt($curl, CURLOPT_URL, $get_url);
+curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($curl);
+curl_close($curl); 
+if($response){
+	$instagram = json_decode($response);
+	if(isset($instagram->error)){
+		$instagram = null;
+	}
+}
+?>
+
     <!-- お知らせ -->
-  <div class="news" id="News">
+    <div class="news" id="News">
     <div class="inner">
       <h2 class="section-title">お知らせ</h2>
-      <div class="news-section">
-        <div class="card">
-          <img src="./img/insta1.jpeg" alt="">
-        </div>
-        <div class="card">
-          <img src="./img/insta2.jpeg" alt="">
-        </div>
-        <div class="card">
-          <img src="./img/insta3.jpeg" alt="">
-        </div>
-        <div class="card card-pc-none">
-          <img src="./img/insta4.jpeg" alt="">
-        </div>
-      </div>
+      <ul class="news-section">
+        <?php
+        foreach($instagram->media->data as $post):
+          $caption = $post->caption;
+          $caption = preg_replace('/\n/', '<br>', $caption);
+        ?>
+          <li class="card" style="flex-direction: row;">
+            <a class="insta-link" href="<?php echo $post->permalink; ?>" target="_blank" rel="noopener noreferrer">
+              <span class="thumbnail">
+                <img style="width: 100%;  height: 100%;" src="<?php if($post->media_type=='VIDEO'){ echo $post->thumbnail_url; } else { echo $post->media_url; } ?>" alt="<?php echo $caption; ?>">
+              </span>
+            </a>
+          </li>
+        <?php endforeach; ?>
+        </ul>
     </div>
   </div>
 
-  <ul class="insta-list">
-    <?php
-              $count = '4'; //画像取得数
-              $id = '17841404220144428'; //InstagramビジネスアカウントID
-              $token = 'EAAFdlOULNeYBAGVxix9a0UlRshZCl7RhqYqNgzKi4iD33jCA35qXDSfA5J4Q9bT1jkRIGk3CRfALcN3jPzOx8MJVu3ZCycWtFOuNcxAft6cfxeXw9PSeF3eI78zru0Ti6dgCQ6QzB3PcDZCmUHesldVEPb1YPsIayaKZAaqvtaiJXcJUE284'; // アクセストークン3
-    
-    　　　　　　$json = file_get_contents("https://graph.facebook.com/v6.0/{$id}?fields=name%2Cmedia.limit({$count})%7Bcaption%2Cmedia_url%2Cthumbnail_url%2Cpermalink%7D&access_token={$token}");
-    
-    　　　　　　$json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
-    　　　　　　$obj = json_decode($json, true);
-    
-    　　　　　　$insta = [];
-    
-    foreach ($obj['media']['data'] as $k => $v) {
-                  if ($v['thumbnail_url']) {
-                      $data = [
-                          'img' => $v['thumbnail_url'], // 投稿が動画だったらサムネURLを取得
-                          'caption' => $v['caption'],   // キャプション
-                          'link' => $v['permalink'],    // パーマリンク
-                      ];
-                  } else {
-                      $data = [
-                          'img' => $v['media_url'],
-                          'caption' => $v['caption'],
-                          'link' => $v['permalink'],
-                      ];
-                  }
-                  $insta[] = $data;
-              }
-    
-    foreach ($insta as $k => $v){
-                  echo '<li><a href="'.$v['link'].'" target="_blank"><img src="'.$v['img'].'" alt="'.$v['caption'].'"></a></li>';
-              }
-    ?>
-    </ul>
   
   <!-- お菓子の一覧 -->
   <div class="menu bg-gray">
@@ -201,9 +190,9 @@
               <img src="./img/Menu-img/Yokan_Small.jpg" alt="">
             </div>
           </div>
-          <div class="card js-modal-open" data-target="No-img" >
+          <div class="card js-modal-open" data-target="Jo-Nama" >
             <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
+              <img src="./img/Menu-img/Jo-Nama_Small.jpg" alt="">
             </div>
           </div>
           <div class="card js-modal-open" data-target="Torayaki" >
@@ -231,9 +220,9 @@
               <img src="./img/Menu-img/Fukkachan_Small.jpg" alt="">
             </div>
           </div>
-          <div class="card js-modal-open" data-target="No-img" >
+          <div class="card js-modal-open" data-target="BinAnn" >
             <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
+              <img src="./img/Menu-img/BinAnn_Small.jpg" alt="">
             </div>
           </div>
       </div>
@@ -291,9 +280,9 @@
               <img src="./img/Menu-img/WarabiMochi_Small.jpg" alt="">
             </div>
           </div>
-          <div class="card js-modal-open" data-target="No-img">
+          <div class="card js-modal-open" data-target="Yudeman">
             <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
+              <img src="./img/Menu-img/Yudeman_Small.jpg" alt="">
             </div>
           </div>
       </div>
@@ -316,34 +305,24 @@
       <!-- 年末/新春のお菓子 -->
       <h3 id="Winter" class="section-sub-title">年末/新春のお菓子</h3>
       <div class="menu-winter menu-section">
-          <div class="card js-modal-open" data-target="No-img">
+          <div class="card js-modal-open" data-target="Hanabira">
             <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
+              <img src="./img/Menu-img/Hanabira_Small.jpg" alt="">
             </div>
           </div>
-          <div class="card js-modal-open" data-target="No-img">
+          <div class="card js-modal-open" data-target="NoshiMochi">
             <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
+              <img src="./img/Menu-img/NoshiMochi_Small.jpg" alt="">
             </div>
           </div>
-          <div class="card js-modal-open" data-target="No-img">
+          <div class="card js-modal-open" data-target="NorikakiMochi">
             <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
+              <img src="./img/Menu-img/NorikakiMochi_Small.jpg" alt="">
             </div>
           </div>
-          <div class="card js-modal-open" data-target="No-img">
+          <div class="card js-modal-open" data-target="KagamiMochi">
             <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
-            </div>
-          </div>
-          <div class="card js-modal-open" data-target="No-img">
-            <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
-            </div>
-          </div>
-          <div class="card js-modal-open" data-target="No-img">
-            <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
+              <img src="./img/Menu-img/KagamiMochi_Small.jpg" alt="">
             </div>
           </div>
       </div>
@@ -351,29 +330,19 @@
       <!-- お祝い/法要のお菓子 -->      
       <h3 id="Ceremony" class="section-sub-title">お祝い/法要のお菓子</h3>
       <div class="menu-ceremony menu-section">
-          <div class="card js-modal-open" data-target="No-img">
+          <div class="card js-modal-open" data-target="Sekihan">
             <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
+              <img src="./img/Menu-img/Sekihan_Small.jpg" alt="">
             </div>
           </div>
-          <div class="card js-modal-open" data-target="No-img">
+          <div class="card js-modal-open" data-target="Kohaku">
             <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
+              <img src="./img/Menu-img/Kouhaku_Small.jpg" alt="">
             </div>
           </div>
-          <div class="card js-modal-open" data-target="No-img">
+          <div class="card js-modal-open" data-target="OtanjoMochi">
             <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
-            </div>
-          </div>
-          <div class="card js-modal-open" data-target="No-img">
-            <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
-            </div>
-          </div>
-          <div class="card js-modal-open" data-target="No-img">
-            <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
+              <img src="./img/Menu-img/OtanjoMochi_Small.jpg" alt="">
             </div>
           </div>
           <div class="card js-modal-open" data-target="No-img">
@@ -391,6 +360,7 @@
   </div>
 
   <!-- モーダルメニュー一覧 -->
+  <!-- 通年のお菓子 -->
   <div class="modal js-modal" id="MeijiDaifuku">
     <div class="modal__bg js-modal-close"></div>
     <div class="modal__content">
@@ -409,6 +379,13 @@
     <div class="modal__bg js-modal-close"></div>
     <div class="modal__content">
       <img class="js-modal-close" src="./img/Menu-img/Yokan_Large.jpg" alt="">
+    </div><!--modal__inner-->
+</div><!--modal-->
+
+  <div class="modal js-modal" id="Jo-Nama">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <img class="js-modal-close" src="./img/Menu-img/Jo-Nama_Large.jpg" alt="">
     </div><!--modal__inner-->
 </div><!--modal-->
 
@@ -433,20 +410,6 @@
     </div><!--modal__inner-->
 </div><!--modal-->
 
-  <div class="modal js-modal" id="Hofuman">
-    <div class="modal__bg js-modal-close"></div>
-    <div class="modal__content">
-      <img class="js-modal-close" src="./img/Menu-img/Hofuman_Small.jpg" alt="">
-    </div><!--modal__inner-->
-</div><!--modal-->
-
-  <div class="modal js-modal" id="Hofuman">
-    <div class="modal__bg js-modal-close"></div>
-    <div class="modal__content">
-      <img class="js-modal-close" src="./img/Menu-img/Hofuman_Small.jpg" alt="">
-    </div><!--modal__inner-->
-</div><!--modal-->
-
   <div class="modal js-modal" id="RomanPie">
     <div class="modal__bg js-modal-close"></div>
     <div class="modal__content">
@@ -461,6 +424,14 @@
     </div><!--modal__inner-->
 </div><!--modal-->
 
+  <div class="modal js-modal" id="BinAnn">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <img class="js-modal-close" src="./img/Menu-img/BinAnn_Large.jpg" alt="">
+    </div><!--modal__inner-->
+</div><!--modal-->
+
+<!-- 春のお菓子 -->
   <div class="modal js-modal" id="IchigoDaifuku">
     <div class="modal__bg js-modal-close"></div>
     <div class="modal__content">
@@ -468,18 +439,18 @@
     </div><!--modal__inner-->
 </div><!--modal-->
 
-  <div class="modal js-modal" id="Kashiwamochi">
-    <div class="modal__bg js-modal-close"></div>
-    <div class="modal__content">
-      <img class="js-modal-close" src="./img/Menu-img/Kashiwamochi_Large.jpg" alt="">
-    </div><!--modal__inner-->
+<div class="modal js-modal" id="Sakuramochi">
+  <div class="modal__bg js-modal-close"></div>
+  <div class="modal__content">
+    <img class="js-modal-close" src="./img/Menu-img/Sakuramochi_Large.jpg" alt="">
+  </div><!--modal__inner-->
 </div><!--modal-->
 
-  <div class="modal js-modal" id="Sakuramochi">
-    <div class="modal__bg js-modal-close"></div>
-    <div class="modal__content">
-      <img class="js-modal-close" src="./img/Menu-img/Sakuramochi_Large.jpg" alt="">
-    </div><!--modal__inner-->
+<div class="modal js-modal" id="Kashiwamochi">
+  <div class="modal__bg js-modal-close"></div>
+  <div class="modal__content">
+    <img class="js-modal-close" src="./img/Menu-img/Kashiwamochi_Large.jpg" alt="">
+  </div><!--modal__inner-->
 </div><!--modal-->
 
   <div class="modal js-modal" id="Kusadango">
@@ -524,10 +495,69 @@
     </div><!--modal__inner-->
 </div><!--modal-->
 
+  <div class="modal js-modal" id="Yudeman">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <img class="js-modal-close" src="./img/Menu-img/Yudeman_Large.jpg" alt="">
+    </div><!--modal__inner-->
+</div><!--modal-->
+
+<!-- 秋のお菓子 -->
   <div class="modal js-modal" id="Kintsuba">
     <div class="modal__bg js-modal-close"></div>
     <div class="modal__content">
       <img class="js-modal-close" src="./img/Menu-img/Kintsuba_Large.jpg" alt="">
+    </div><!--modal__inner-->
+</div><!--modal-->
+
+<!-- 年末〜新春のお菓子 -->
+<div class="modal js-modal" id="Hanabira">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <img class="js-modal-close" src="./img/Menu-img/Hanabira_Large.jpg" alt="">
+    </div><!--modal__inner-->
+</div><!--modal-->
+
+<div class="modal js-modal" id="NoshiMochi">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <img class="js-modal-close" src="./img/Menu-img/NoshiMochi_Large.jpg" alt="">
+    </div><!--modal__inner-->
+</div><!--modal-->
+
+<div class="modal js-modal" id="NorikakiMochi">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <img class="js-modal-close" src="./img/Menu-img/NorikakiMochi_Large.jpg" alt="">
+    </div><!--modal__inner-->
+</div><!--modal-->
+
+<div class="modal js-modal" id="KagamiMochi">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <img class="js-modal-close" src="./img/Menu-img/KagamiMochi_Large.jpg" alt="">
+    </div><!--modal__inner-->
+</div><!--modal-->
+
+<!-- お祝い・法事菓子 -->
+<div class="modal js-modal" id="Sekihan">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <img class="js-modal-close" src="./img/Menu-img/Sekihan_Large.jpg" alt="">
+    </div><!--modal__inner-->
+</div><!--modal-->
+
+<div class="modal js-modal" id="Kohaku">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <img class="js-modal-close" src="./img/Menu-img/Kouhaku_Large.jpg" alt="">
+    </div><!--modal__inner-->
+</div><!--modal-->
+
+<div class="modal js-modal" id="OtanjoMochi">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <img class="js-modal-close" src="./img/Menu-img/OtanjoMochi_Large.jpg" alt="">
     </div><!--modal__inner-->
 </div><!--modal-->
 
@@ -752,6 +782,7 @@
     </div>
   </footer>
 
+  <script type="text/javascript" src="//webfonts.xserver.jp/js/xserver.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>

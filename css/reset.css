@@ -10,7 +10,7 @@ html,body, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, div, span, img, a,
   font-weight: normal;
   font-size: 62.5%;
   vertical-align: baseline;
-  font-family: '游明朝','Yu Mincho',YuMincho,'Hiragino Mincho Pro',serif;;
+  font-family: 'A1明朝', '游明朝','Yu Mincho',YuMincho,'Hiragino Mincho Pro',serif;;
 }
 
 header, footer, nav, section, article, aside, figure, figcaption {

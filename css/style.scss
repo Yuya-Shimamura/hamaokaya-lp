@@ -431,7 +431,6 @@ $breakpoints: (
     padding-top: 50px;
   }
 }
-
 .introduction {
   padding-top: 7.4rem;
   padding-bottom: 7.4rem;
@@ -454,11 +453,13 @@ $breakpoints: (
     }
   }
 }
+
+
 .news-section {
+  padding-bottom: 108px;
   display: grid;
   gap: 2.4rem;
   grid-template-columns: 1fr 1fr 1fr;
-  padding-bottom: 108px;
   @include mq(md) {
     gap: 1rem;
     grid-template-columns: 1fr 1fr;
@@ -469,28 +470,15 @@ $breakpoints: (
     grid-template-columns: 1fr 1fr;
     padding-bottom: 54px;
   }
-  .card {
-    background: $color-white;
-    border-radius: 4px;
-    font-weight: bold;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-      img {
-        width: 100%;
-        height: 100%;
-      }
-  }
-  .card-pc-none {
-    display: none;
-    @include mq(md) {
-      display: block;
-    }
-    @include mq(sm) {
-      display: block;
+  .insta-link {
+    transition: all .3s;
+    &:hover {
+      transform: scale(1.03);
     }
   }
 }
+
+
 
 // ******    メニューカードセクション    ******
 .menu-section {
