@@ -163,9 +163,18 @@
 
 .pc-nav .nav-menu a {
   font-size: 2rem;
-  padding-left: 1rem;
   color: #940035;
   font-weight: bold;
+}
+
+.pc-nav .nav-menu .open-menu {
+  position: relative;
+}
+
+.pc-nav .nav-menu .open-menu .fa-caret-right {
+  position: absolute;
+  top: 1px;
+  left: -1.2rem;
 }
 
 .nav-responsive {
@@ -472,7 +481,7 @@
   padding-bottom: 108px;
   display: grid;
   gap: 2.4rem;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 @media screen and (max-width: 767px) {
@@ -497,6 +506,16 @@
 
 .news-section .insta-link:hover {
   transform: scale(1.03);
+}
+
+.news-section .insta-link img {
+  max-height: 250px;
+}
+
+@media screen and (max-width: 767px) {
+  .news-section .insta-link img {
+    max-height: 171px;
+  }
 }
 
 .menu-section {

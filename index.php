@@ -127,7 +127,7 @@
 $instagram = null;
 $instagram_business_id = '17841404220144428'; 
 $access_token = 'EAAC0skTSDZBgBAOWwcktMxAr8fQAOX3bPsI1XqYSZBoH6LOktuD04o704jbgZBd5AAwGt6HfCgqZAjAPuI17tBhry6wqzEgeeqeoxlxohStiZBRWW6I9TJpYiMfJyPqPFHI9wuZAnD0pwNxTnJlXRKEJV8kpwtSLh1vkmAtTHW7pPmYBfQeRuO'; 
-$post_count = 6;
+$post_count = 4;
 $query = 'name,media.limit(' . $post_count. '){caption,like_count,media_url,permalink,timestamp,username,comments_count}';
 $get_url = 'https://graph.facebook.com/v9.0/' . $instagram_business_id . '?fields=' . $query . '&access_token=' . $access_token;
 $curl = curl_init();
@@ -144,7 +144,7 @@ if($response){
 }
 ?>
 
-    <!-- お知らせ -->
+    <!-- 最新のインスタグラム投稿 -->
     <div class="news" id="News">
     <div class="inner">
       <h2 class="section-title">最新のインスタグラム投稿</h2>
