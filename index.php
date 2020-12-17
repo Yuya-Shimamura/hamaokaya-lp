@@ -55,7 +55,7 @@
       </div>
       <div class="nav-menu">
         <ul>
-          <li><a href="#News">お知らせ</a></li>
+          <li><a href="#News">最新のインスタグラム投稿</a></li>
           <li>
             <a class="open-menu"><i class="fa fa-caret-right"></i> お菓子の一覧</a>
             <ul class="menu-toggler">
@@ -70,7 +70,7 @@
           <li><a href="#About">古伝餡 濱岡屋の心</a></li>
           <li><a href="#Cafe">濱岡屋カフェ</a></li>
           <li><a href="#Contact">店舗のご案内</a></li>
-          <li><a href="./order-list.pdf">ご注文表</a></li>
+          <li><a href="./order-list.pdf">ご注文票</a></li>
           <li class="insta-link"><a href="https://www.instagram.com/hamaokaya_wagashi/?hl=ja"><i class="fab fa-instagram"></i><p>Instagram</p></a></li>
         </ul>
       </div>
@@ -87,7 +87,7 @@
       </div>
       <div class="globalMenuSp">
         <ul>
-          <li><a href="#News">お知らせ</a></li>
+          <li><a href="#News">最新のインスタグラム投稿</a></li>
           <li class=" open-menu-res">
               <p class="color-change open-res">お菓子の一覧</p>
               <div class="angle-down"></div>
@@ -103,7 +103,7 @@
           <li><a href="#About">古伝餡 濱岡屋の心</a></li>
           <li><a href="#Cafe">濱岡屋カフェ</a></li>
           <li><a href="#Contact">店舗のご案内</a></li>
-          <li><a href="./order-list.pdf">ご注文表</a></li>
+          <li><a href="./order-list.pdf">ご注文票</a></li>
         </ul>
       </div>
     </nav>
@@ -147,7 +147,7 @@ if($response){
     <!-- お知らせ -->
     <div class="news" id="News">
     <div class="inner">
-      <h2 class="section-title">お知らせ</h2>
+      <h2 class="section-title">最新のインスタグラム投稿</h2>
       <ul class="news-section">
         <?php
         foreach($instagram->media->data as $post):
@@ -345,14 +345,14 @@ if($response){
               <img src="./img/Menu-img/OtanjoMochi_Small.jpg" alt="">
             </div>
           </div>
-          <div class="card js-modal-open" data-target="No-img">
+          <div class="card js-modal-open" data-target="Kasuga">
             <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
+              <img src="./img/Menu-img/Kasuga_Small.jpg" alt="">
             </div>
           </div>
-          <div class="card js-modal-open" data-target="No-img">
+          <div class="card js-modal-open" data-target="HoYoMan">
             <div class="card-img">
-              <img src="./img/no-img.jpg" alt="">
+              <img src="./img/Menu-img/HoYoMan_Small.jpg" alt="">
             </div>
           </div>
       </div>
@@ -561,6 +561,20 @@ if($response){
     </div><!--modal__inner-->
 </div><!--modal-->
 
+<div class="modal js-modal" id="Kasuga">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <img class="js-modal-close" src="./img/Menu-img/Kasuga_Large.jpg" alt="">
+    </div><!--modal__inner-->
+</div><!--modal-->
+
+<div class="modal js-modal" id="HoYoMan">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <img class="js-modal-close" src="./img/Menu-img/HoYoMan_Large.jpg" alt="">
+    </div><!--modal__inner-->
+</div><!--modal-->
+
   <!-- 濱岡屋の心 -->
   <div class="about" id="About">
     <div class="inner">
@@ -592,18 +606,12 @@ if($response){
         </div>
         <div class="section-text">
           <p>
-            明治創業以来130年余り、原料の持つ味を大切にした手作りの和菓子に
-            こだわって参りました。<br><br>
-            当店では最高級の北海小豆と数種類の砂糖を使い分け純水を使用し、
-            自家製で餡を作っております。<br>
-            濱岡屋がこれまで受け継いできた伝統の技と、素材本来の味を存分に
-            味わっていただけるお菓子作りを続けております。<br><br>
+            明治創業以来130年余り、原料の持つ味を大切にした手作りの和菓子にこだわって参りました。<br><br>
+            当店では最高級の北海小豆と数種類の砂糖を使い分け純水を使用し、自家製で餡を作っております。<br>
+            濱岡屋がこれまで受け継いできた伝統の技と、素材本来の味を存分に味わっていただけるお菓子作りを続けております。<br><br>
             自家製餡と同じく力を注いでいるのが、季節を表現する上生菓子です。<br>
-            その季節の美しさをお菓子で表現し、お茶席や皆様のご家庭で、
-            目で楽しみじっくり味わっていただけるよう、
-            丹精込めてひとつひとつ丁寧に作っております。<br><br>
-            時代に合わせたお菓子作りにも取り組みつつ、
-            創業以来の伝統の味をお楽しみください。
+            その季節の美しさをお菓子で表現し、お茶席や皆様のご家庭で、目で楽しみじっくり味わっていただけるよう、丹精込めてひとつひとつ丁寧に作っております。<br><br>
+            時代に合わせたお菓子作りにも取り組みつつ、創業以来の伝統の味をお楽しみください。
           </p>
         </div>
       </div>
@@ -622,13 +630,14 @@ if($response){
           <li data-target="#cafeImageFade" data-slide-to="3"></li>
           <li data-target="#cafeImageFade" data-slide-to="4"></li>
           <li data-target="#cafeImageFade" data-slide-to="5"></li>
+          <li data-target="#cafeImageFade" data-slide-to="6"></li>
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img class="d-block w-100" src="./img/Cafe_Table_01.jpg" alt="slide1">
           </div>
           <div class="carousel-item">
-            <img class="d-block w-100" src="./img/Cafe_JouNama_Maccha.jpg" alt="slide2">
+            <img class="d-block w-100" src="./img/Jo-Nama and Maccha.jpg" alt="slide2">
           </div>
           <div class="carousel-item">
             <img class="d-block w-100" src="./img/Cafe_JouNama_IceMaccha.jpg" alt="slide3">
@@ -642,16 +651,16 @@ if($response){
           <div class="carousel-item">
             <img class="d-block w-100" src="./img/Cafe_Table_02.jpg" alt="slide6">
           </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="./img/OutsideSeats.jpg" alt="slide6">
+          </div>
         </div>
       </div>
       <div class="section-text">
         <p>
-          新店舗には、濱岡屋のお菓子をその場で召し上がっていただける
-          カフェスペースを設けております。<br>
-          古伝餡の餡をたっぷり使ったあんみつ、焼きたての栄一バターどら焼きなど
-          作りたてならではの美味しさをご用意しております。<br><br>
-          また、夏には餡はもちろん自家製のシロップを使ったかき氷や、
-          古伝餡を使ったアイス最中などもございます。<br>
+          新店舗には、濱岡屋のお菓子をその場で召し上がっていただけるカフェスペースを設けております。<br>
+          古伝餡の餡をたっぷり使ったあんみつ、焼きたての栄一バターどら焼きなど作りたてならではの美味しさをご用意しております。<br><br>
+          また、夏には餡はもちろん自家製のシロップを使ったかき氷や、古伝餡を使ったアイス最中などもございます。<br>
           美味しいお茶とご一緒にお召し上がりください。<br>
         （お品書きは季節により変わります）<br><br>
 
@@ -701,11 +710,11 @@ if($response){
       <div class="section-text">
         <div class="text-flex">
           <p class="text-flex-title">住所</p>
-          <p><a href="https://goo.gl/maps/qH3JV1Gf3UicM8QP9">〒366-0824 埼玉県深谷市<br class="pc-d-none">西島町2-18-14    <i class="fas fa-map-marker-alt"></i></a></p>
+          <p><a href="https://goo.gl/maps/eG7E8FZZLRdxAYEB7">〒366-0824 埼玉県深谷市<br class="pc-d-none">西島町2-18-14    <i class="fas fa-map-marker-alt"></i></a></p>
         </div>
         <div class="text-flex">
           <p class="text-flex-title">電話</p>
-          <p><a href="tel:048-571-0505">048-571-0505(代表)</a></p>
+          <p><a href="tel:048-571-0505">048-571-0505（代表）</a></p>
         </div>
         <div class="text-flex">
           <p class="text-flex-title">FAX</p>
@@ -713,11 +722,11 @@ if($response){
         </div>
         <div class="text-flex">
           <p class="text-flex-title">店舗営業</p>
-          <p>9:00〜18:00</p>
+          <p>9：00〜18：00</p>
         </div>
         <div class="text-flex">
           <p class="text-flex-title">カフェ営業</p>
-          <p>10:00〜17:00</p>
+          <p>10：00〜17：00</p>
         </div>
         <div class="text-flex">
           <p class="text-flex-title">休業日</p>
@@ -725,7 +734,7 @@ if($response){
         </div>
         <div class="text-flex">
           <p class="text-flex-title">駐車場</p>
-          <p>店舗前に６台完備</p>
+          <p>店舗前に８台完備</p>
         </div>
       </div>
       <div class="shop-image">
@@ -741,7 +750,7 @@ if($response){
       <p class="fax-text">↓FAXでご注文の方は、こちらからダウンロード</p>
     <a href="./order-list.pdf">
       <div class="btn fax-btn">
-        <p>ご注文表</p>
+        <p>ご注文票</p>
       </div>
     </a>
   </div>
